@@ -675,26 +675,53 @@ textarea.bt-admin-excerpt-input {
 }
 
 .fi-fo-file-upload-input-ctn {
-    align-items: center;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    display: block;
+    min-height: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.fi-fo-file-upload .filepond--root {
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 249, 252, 0.96));
     border: 1px dashed rgba(22, 18, 64, 0.28);
     border-radius: 0.6rem;
     box-shadow: none;
-    display: flex;
-    justify-content: center;
     min-height: 8.5rem;
-    padding: 1rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    width: 100%;
 }
 
-.fi-fo-file-upload:hover .fi-fo-file-upload-input-ctn {
+.fi-fo-file-upload .filepond--panel-root {
+    background: transparent;
+}
+
+.fi-fo-file-upload .filepond--drop-label {
+    min-height: 8.5rem;
+}
+
+.fi-fo-file-upload .filepond--drop-label label {
+    color: var(--bt-admin-text);
+}
+
+.fi-fo-file-upload:hover .filepond--root {
     border-color: rgba(22, 18, 64, 0.42);
     box-shadow: var(--bt-admin-input-focus-shadow);
 }
 
 .fi-fo-file-upload-input {
     color: var(--bt-admin-heading);
+}
+
+.fi-fo-file-upload .filepond--file-action-button {
+    cursor: pointer;
+}
+
+.fi-fo-file-upload .filepond--credits {
+    display: none;
 }
 
 .fi-fo-file-upload-error-message {
