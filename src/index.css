@@ -1,0 +1,296 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "TBCContractica";
+  src: url("/fonts/TBCContractica-Regular.woff2") format("woff2"),
+       url("/fonts/TBCContractica-Regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TBCContractica";
+  src: url("/fonts/TBCContractica-Medium.woff2") format("woff2"),
+       url("/fonts/TBCContractica-Medium.woff") format("woff");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TBCContractica";
+  src: url("/fonts/TBCContractica-Bold.woff2") format("woff2"),
+       url("/fonts/TBCContractica-Bold.woff") format("woff");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TBCContracticaCAPS";
+  src: url("/fonts/TBCContracticaCAPS-Regular.woff2") format("woff2"),
+       url("/fonts/TBCContracticaCAPS-Regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TBCContracticaCAPS";
+  src: url("/fonts/TBCContracticaCAPS-Medium.woff2") format("woff2"),
+       url("/fonts/TBCContracticaCAPS-Medium.woff") format("woff");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TBCContracticaCAPS";
+  src: url("/fonts/TBCContracticaCAPS-Bold.woff2") format("woff2"),
+       url("/fonts/TBCContracticaCAPS-Bold.woff") format("woff");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 230 50% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 230 50% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 50% 15%;
+
+    --primary: 358 78% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 233 53% 21%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 20% 96%;
+    --muted-foreground: 220 10% 40%;
+
+    --accent: 358 78% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 20% 90%;
+    --input: 220 20% 90%;
+    --ring: 358 78% 50%;
+
+    --radius: 0.5rem;
+
+    /* Custom tokens */
+    --navy: 233 53% 21%;
+    --crimson: 358 78% 50%;
+    --crimson-dark: 358 78% 42%;
+    --gold: 45 93% 58%;
+    --light-gray: 220 20% 97%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(233 53% 21%) 0%, hsl(233 53% 28%) 100%);
+    --gradient-crimson: linear-gradient(135deg, hsl(358 78% 50%) 0%, hsl(358 78% 42%) 100%);
+    
+    /* Shadows */
+    --shadow-card: 0 4px 20px -4px hsl(233 53% 21% / 0.1);
+    --shadow-elevated: 0 8px 30px -8px hsl(233 53% 21% / 0.15);
+    --shadow-glow: 0 0 40px hsl(358 78% 50% / 0.2);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 233 53% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 233 53% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 233 53% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 358 78% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 233 40% 30%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 233 30% 20%;
+    --muted-foreground: 220 10% 70%;
+
+    --accent: 358 78% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 233 30% 25%;
+    --input: 233 30% 25%;
+    --ring: 358 78% 55%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+
+  p {
+    @apply font-sans;
+  }
+}
+
+@layer components {
+  .bt-rich-content {
+    @apply text-inherit;
+  }
+
+  .bt-rich-content p {
+    @apply mb-4 last:mb-0;
+  }
+
+  .bt-rich-content ul,
+  .bt-rich-content ol {
+    @apply my-4 space-y-2 pl-5;
+  }
+
+  .bt-rich-content li {
+    @apply leading-relaxed;
+  }
+
+  .bt-rich-content a {
+    @apply underline underline-offset-4;
+  }
+
+  .bt-rich-content strong {
+    @apply font-semibold;
+  }
+
+  .bt-rich-content h1,
+  .bt-rich-content h2,
+  .bt-rich-content h3,
+  .bt-rich-content h4 {
+    @apply mb-3 font-heading text-inherit;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+  
+  .bg-hero-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-crimson-gradient {
+    background: var(--gradient-crimson);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+  
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.4s ease-out forwards;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:text-6xl {
+    font-size: 2.75rem;
+    line-height: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50;
+}

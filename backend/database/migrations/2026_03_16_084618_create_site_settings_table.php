@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('site_settings', function (Blueprint $table) {
+            $table->id();
+            $table->string('key')->unique();
+            $table->json('hero_ka')->nullable();
+            $table->json('hero_en')->nullable();
+            $table->json('hero_ru')->nullable();
+            $table->json('about_ka')->nullable();
+            $table->json('about_en')->nullable();
+            $table->json('about_ru')->nullable();
+            $table->json('contact_ka')->nullable();
+            $table->json('contact_en')->nullable();
+            $table->json('contact_ru')->nullable();
+            $table->json('footer_ka')->nullable();
+            $table->json('footer_en')->nullable();
+            $table->json('footer_ru')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('site_settings');
+    }
+};

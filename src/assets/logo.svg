@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <!-- TT Logo Icon - Refined -->
+  <g>
+    <!-- Main rounded rectangle background -->
+    <rect x="2" y="2" width="40" height="56" rx="8" fill="#1B2B5A"/>
+    
+    <!-- White T - horizontal bar (same width as red T horizontal) -->
+    <rect x="8" y="26" width="28" height="8" rx="1" fill="white"/>
+    
+    <!-- White T - vertical bar (closed top, extends to bottom) -->
+    <rect x="14" y="34" width="16" height="20" rx="1" fill="white"/>
+    
+    <!-- Red T - horizontal bar (same width as white T) -->
+    <rect x="8" y="10" width="28" height="8" rx="1" fill="#E31E24"/>
+    
+    <!-- Red T - vertical bar (same width as white T vertical) -->
+    <rect x="14" y="10" width="16" height="16" rx="1" fill="#E31E24"/>
+  </g>
+  
+  <!-- Text: TBILISI CENTRAL BUS TERMINAL -->
+  <g fill="#1B2B5A" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+    <text x="52" y="18" font-size="11" font-weight="700" letter-spacing="0.8">TBILISI</text>
+    <text x="52" y="31" font-size="11" font-weight="700" letter-spacing="0.8">CENTRAL</text>
+    <text x="52" y="44" font-size="11" font-weight="700" letter-spacing="0.8">BUS</text>
+    <text x="52" y="57" font-size="11" font-weight="700" letter-spacing="0.8">TERMINAL</text>
+  </g>
+</svg>
