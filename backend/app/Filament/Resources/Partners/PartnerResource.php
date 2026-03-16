@@ -60,13 +60,6 @@ class PartnerResource extends Resource
                 ],
                 'აქ იმართება პარტნიორის აღწერა და მიმართულებების ჩამონათვალი. აღწერის ველები უკვე rich editor-ზეა.',
             ),
-            AdminFormLayout::mainSection(
-                'SEO და გაზიარება',
-                [
-                    AdminSeoSchema::localeTabs(),
-                ],
-                'პარტნიორის detail გვერდისთვის შეგიძლია ცალკე SEO title/description/keywords მიუთითო.',
-            ),
             AdminFormLayout::sidebarSection('ძირითადი პარამეტრები', [
                 TextInput::make('name')->label('სახელი')->required(),
                 TextInput::make('website')->label('ვებსაიტი')->url(),
@@ -74,6 +67,13 @@ class PartnerResource extends Resource
                     ->label('პარტნიორის გვერდი')
                     ->content('საჯარო URL ავტომატურად გენერირდება პარტნიორის სახელიდან.'),
             ]),
+            AdminFormLayout::mainSection(
+                'SEO და გაზიარება',
+                [
+                    AdminSeoSchema::localeTabs(),
+                ],
+                'პარტნიორის detail გვერდისთვის შეგიძლია ცალკე SEO title/description/keywords მიუთითო.',
+            ),
             AdminFormLayout::sidebarSection('გამოქვეყნება', [
                 Toggle::make('published')->label('გამოქვეყნებულია')->default(true),
                 Toggle::make('noindex')->label('არ დააინდექსოს საძიებო სისტემებში')->default(false),
@@ -86,6 +86,10 @@ class PartnerResource extends Resource
                     ->directory('cms/partners')
                     ->visibility('public')
                     ->image()
+                    ->previewable()
+                    ->openable()
+                    ->downloadable()
+                    ->imagePreviewHeight('180')
                     ->imageEditor(),
                 FileUpload::make('seo_image_url')
                     ->label('SEO / სოციალური გაზიარების სურათი')
@@ -93,6 +97,10 @@ class PartnerResource extends Resource
                     ->directory('cms/partners')
                     ->visibility('public')
                     ->image()
+                    ->previewable()
+                    ->openable()
+                    ->downloadable()
+                    ->imagePreviewHeight('180')
                     ->imageEditor(),
             ]),
         ]);

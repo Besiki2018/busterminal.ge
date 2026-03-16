@@ -98,6 +98,10 @@ class AdminPanelTest extends TestCase
         $user = User::query()->where('email', 'info@busterminal.ge')->firstOrFail();
         $page = Page::query()->firstOrFail();
 
+        $indexResponse = $this->actingAs($user)->get('/admin/pages');
+        $indexResponse->assertOk();
+        $indexResponse->assertSee('გვერდები');
+
         $createResponse = $this->actingAs($user)->get('/admin/pages/create');
         $createResponse->assertOk();
         $createResponse->assertSee('გვერდის დამატება');
@@ -138,6 +142,9 @@ class AdminPanelTest extends TestCase
             'sort_order' => 1,
         ]);
 
+        $this->actingAs($user)->get('/admin/destination-routes')
+            ->assertOk()
+            ->assertSee('მიმართულებები');
         $this->actingAs($user)->get('/admin/destination-routes/create')
             ->assertOk()
             ->assertSee('მიმართულების დამატება');
@@ -145,12 +152,21 @@ class AdminPanelTest extends TestCase
             ->assertOk()
             ->assertSee('მიმართულების რედაქტირება');
 
+        $this->actingAs($user)->get('/admin/partners')
+            ->assertOk()
+            ->assertSee('პარტნიორები');
         $this->actingAs($user)->get('/admin/partners/create')
             ->assertOk()
             ->assertSee('პარტნიორის დამატება');
         $this->actingAs($user)->get("/admin/partners/{$partner->getKey()}/edit")
             ->assertOk()
-            ->assertSee('პარტნიორის რედაქტირება');
+            ->assertSee('პარტნიორის რედაქტირება')
+            ->assertSeeInOrder([
+                'პარტნიორის აღწერა',
+                'ძირითადი პარამეტრები',
+                'SEO და გაზიარება',
+                'სურათები',
+            ]);
 
         $this->actingAs($user)->get('/admin/leadership-members/create')
             ->assertOk()
@@ -159,6 +175,9 @@ class AdminPanelTest extends TestCase
             ->assertOk()
             ->assertSee('ხელმძღვანელის რედაქტირება');
 
+        $this->actingAs($user)->get('/admin/schedule-overrides')
+            ->assertOk()
+            ->assertSee('განრიგის ცვლილებები');
         $this->actingAs($user)->get('/admin/schedule-overrides/create')
             ->assertOk()
             ->assertSee('განრიგის ჩანაწერის დამატება');

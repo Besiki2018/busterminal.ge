@@ -51,6 +51,9 @@ class AdminFormLayout
             ->columnSpan([
                 'xl' => 1,
             ])
+            ->columnStart([
+                'xl' => 3,
+            ])
             ->extraAttributes([
                 'class' => 'bt-admin-editor-sidebar',
             ]);

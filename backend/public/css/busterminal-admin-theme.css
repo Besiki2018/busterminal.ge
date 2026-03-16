@@ -23,6 +23,10 @@
     --bt-admin-danger: #ea5455;
     --bt-admin-shadow: none;
     --bt-admin-shadow-lg: none;
+    --bt-admin-sidebar-offset: var(--sidebar-width);
+    --bt-admin-topbar-offset-y: 1.35rem;
+    --bt-admin-topbar-height: 4.35rem;
+    --bt-admin-topbar-gap: 1.15rem;
 }
 
 body.fi-body {
@@ -37,7 +41,9 @@ body.fi-body {
 }
 
 .fi-main-ctn {
+    opacity: 1 !important;
     position: relative;
+    transition: none !important;
 }
 
 .fi-logo {
@@ -218,8 +224,110 @@ body.fi-body {
 }
 
 .fi-main {
+    animation: none !important;
     padding: 1.15rem 1.5rem 1.75rem;
+    transition: none !important;
     width: 100%;
+}
+
+.fi-page,
+.fi-page-content,
+.fi-page-main,
+.fi-section,
+.fi-ta-ctn,
+.fi-wi-widget,
+.fi-simple-main {
+    animation: none !important;
+    transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none !important;
+}
+
+@media (min-width: 1024px) {
+    html.fi:has(body.fi-body.fi-body-has-navigation),
+    body.fi-body.fi-body-has-navigation {
+        overflow: hidden;
+    }
+
+    body.fi-body.fi-body-has-navigation {
+        --bt-admin-sidebar-offset: var(--collapsed-sidebar-width);
+    }
+
+    body.fi-body.fi-body-has-navigation:has(.fi-main-sidebar.fi-sidebar-open) {
+        --bt-admin-sidebar-offset: var(--sidebar-width);
+    }
+
+    .fi-layout {
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    .fi-main-sidebar {
+        height: 100dvh;
+        inset-block: 0;
+        inset-inline-start: 0;
+        overflow: hidden;
+        position: fixed;
+        top: 0 !important;
+        transform: none !important;
+        width: var(--bt-admin-sidebar-offset) !important;
+        z-index: 40;
+    }
+
+    .fi-main-sidebar.fi-sidebar-open {
+        width: var(--sidebar-width) !important;
+    }
+
+    .fi-main-sidebar:not(.fi-sidebar-open) {
+        width: var(--collapsed-sidebar-width) !important;
+    }
+
+    .fi-sidebar-header-ctn {
+        background: var(--bt-admin-surface);
+        inset-block-start: 0;
+        position: sticky;
+        z-index: 2;
+    }
+
+    .fi-sidebar-nav {
+        padding-bottom: 1.5rem;
+    }
+
+    .fi-main-ctn {
+        height: 100dvh;
+        margin-inline-start: 0;
+        min-width: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-inline-start: var(--bt-admin-sidebar-offset);
+        scrollbar-gutter: stable;
+        width: 100%;
+    }
+
+    .fi-topbar-ctn {
+        inset-block-start: 0 !important;
+        inset-inline-end: 0;
+        inset-inline-start: var(--bt-admin-sidebar-offset);
+        padding: var(--bt-admin-topbar-offset-y) 1.5rem 0;
+        position: fixed !important;
+        transition: none !important;
+        z-index: 35 !important;
+    }
+
+    .fi-topbar {
+        min-height: var(--bt-admin-topbar-height);
+    }
+
+    .fi-main {
+        min-height: 100%;
+        padding-top: calc(
+            var(--bt-admin-topbar-offset-y) + var(--bt-admin-topbar-height) +
+                var(--bt-admin-topbar-gap)
+        );
+    }
 }
 
 .fi-page-main {
@@ -326,6 +434,28 @@ body.fi-body {
 
 .bt-admin-editor-sidebar .fi-section-content {
     padding-inline: 1.05rem;
+}
+
+.bt-admin-editor-main .fi-fo-field-content-col,
+.bt-admin-editor-main .fi-fo-field-content,
+.bt-admin-editor-main .fi-input-wrp,
+.bt-admin-editor-main .fi-textarea,
+.bt-admin-editor-main .fi-fo-rich-editor,
+.bt-admin-editor-main .fi-fo-file-upload,
+.bt-admin-editor-sidebar .fi-fo-field-content-col,
+.bt-admin-editor-sidebar .fi-fo-field-content,
+.bt-admin-editor-sidebar .fi-input-wrp,
+.bt-admin-editor-sidebar .fi-fo-file-upload {
+    max-width: none;
+    width: 100%;
+}
+
+.bt-admin-editor-main .fi-fo-field-content-col > .fi-sc-text,
+.bt-admin-editor-sidebar .fi-fo-field-content-col > .fi-sc-text {
+    display: block;
+    line-height: 1.6;
+    max-width: none;
+    width: 100%;
 }
 
 .fi-breadcrumbs {
@@ -522,6 +652,15 @@ textarea.bt-admin-excerpt-input {
     width: 100%;
 }
 
+.fi-fo-file-upload-uploaded-file,
+.fi-fo-file-upload-uploaded-file-info,
+.fi-fo-file-upload-uploaded-file-ctn,
+.fi-fo-file-upload-preview,
+.fi-fo-file-upload-preview img,
+.fi-fo-file-upload-preview svg {
+    max-width: 100%;
+}
+
 .fi-fo-file-upload-input-ctn {
     align-items: center;
     background:
@@ -693,6 +832,24 @@ textarea.bt-admin-excerpt-input {
 .fi-ac-btn-action.fi-color-primary {
     background: var(--bt-admin-primary);
     box-shadow: none;
+}
+
+.fi-btn.fi-color-primary,
+.fi-btn-color-primary,
+.fi-ac-btn-action.fi-color-primary,
+.fi-ac-btn-group.fi-color-primary,
+.fi-icon-btn.fi-color-primary,
+.fi-color.fi-color-primary.fi-bg-color-600 {
+    color: #fff !important;
+}
+
+.fi-btn.fi-color-primary .fi-icon,
+.fi-btn-color-primary .fi-icon,
+.fi-ac-btn-action.fi-color-primary .fi-icon,
+.fi-ac-btn-group.fi-color-primary .fi-icon,
+.fi-icon-btn.fi-color-primary .fi-icon,
+.fi-color.fi-color-primary.fi-bg-color-600 .fi-icon {
+    color: currentColor !important;
 }
 
 .fi-ta-main {

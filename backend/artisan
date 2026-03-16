@@ -5,6 +5,27 @@ use Symfony\Component\Console\Input\ArgvInput;
 
 define('LARAVEL_START', microtime(true));
 
+$preferredPhpBinary = getenv('BUSTERTERMINAL_PHP_BINARY') ?: '/opt/homebrew/opt/php@8.3/bin/php';
+$currentPhpBinary = PHP_BINARY ?: null;
+
+if (
+    PHP_SAPI === 'cli' &&
+    ! extension_loaded('intl') &&
+    is_string($preferredPhpBinary) &&
+    is_executable($preferredPhpBinary) &&
+    realpath($preferredPhpBinary) !== realpath($currentPhpBinary)
+) {
+    $command = escapeshellarg($preferredPhpBinary) . ' ' . escapeshellarg(__FILE__);
+
+    foreach (array_slice($_SERVER['argv'] ?? [], 1) as $argument) {
+        $command .= ' ' . escapeshellarg((string) $argument);
+    }
+
+    passthru($command, $status);
+
+    exit(is_int($status) ? $status : 1);
+}
+
 // Register the Composer autoloader...
 require __DIR__.'/vendor/autoload.php';
 

@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run seo:preview",
+    "dev:spa": "vite",
     "backend:dev": "cd backend && /opt/homebrew/opt/php@8.3/bin/php artisan serve --host=127.0.0.1 --port=8000",
     "backend:setup": "cd backend && /opt/homebrew/opt/php@8.3/bin/php /opt/homebrew/bin/composer install && /opt/homebrew/opt/php@8.3/bin/php artisan migrate:fresh --seed && /opt/homebrew/opt/php@8.3/bin/php artisan storage:link",
     "build": "vite build && tsx scripts/prerender.tsx",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "node scripts/seo-preview.mjs",
     "seo:preview": "npm run build && node scripts/seo-preview.mjs"
   },
   "dependencies": {

@@ -12,15 +12,36 @@ dist
 dist-ssr
 *.local
 .env
+*.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
 backend_l12_backup/
+admin-template/dist/
 
 # Editor directories and files
+.DS_Store
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Backend / Laravel
+backend/.env
+backend/.phpunit.result.cache
+backend/vendor/
+backend/node_modules/
+backend/public/storage
+backend/public/build
+backend/public/hot
+backend/bootstrap/cache/*.php
+backend/storage/logs/
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*.php
+backend/storage/framework/testing/*
+backend/database/*.sqlite

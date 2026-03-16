@@ -204,6 +204,18 @@
   .bt-rich-content h4 {
     @apply mb-3 font-heading text-inherit;
   }
+
+  :is(button, a, [role="button"], .btn).bg-secondary,
+  :is(button, a, [role="button"], .btn)[class*="bg-blue-"],
+  :is(button, a, [role="button"], .btn).seo-prerender-button {
+    color: #fff;
+  }
+
+  :is(button, a, [role="button"], .btn).bg-secondary :is(span, svg),
+  :is(button, a, [role="button"], .btn)[class*="bg-blue-"] :is(span, svg),
+  :is(button, a, [role="button"], .btn).seo-prerender-button :is(span, svg) {
+    color: currentColor;
+  }
 }
 
 @layer utilities {

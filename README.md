@@ -45,7 +45,13 @@ npm run backend:dev
 
 ## SEO შემოწმება ლოკალურად
 
-`npm run dev` არის მხოლოდ development shell და `view-source`-ში route-specific SEO HTML არ გამოჩნდება.
+`npm run dev` ახლა უშვებს prerendered SEO preview-ს, ამიტომ `view-source`-ში route-specific SEO HTML გამოჩნდება.
+
+თუ ოდესმე ისევ plain Vite SPA shell დაგჭირდება:
+
+```bash
+npm run dev:spa
+```
 
 თუ გინდა ზუსტად ის HTML ნახო, რასაც crawler-ები მიიღებენ:
 
