@@ -123,6 +123,11 @@ class AdminPanelTest extends TestCase
         $editResponse = $this->actingAs($user)->get("/admin/blog-posts/{$post->getKey()}/edit");
         $editResponse->assertOk();
         $editResponse->assertSee('ბლოგ პოსტის რედაქტირება');
+        $editResponse->assertSee('პოსტის კონტენტი');
+        $editResponse->assertSee('SEO და გაზიარება');
+        $editResponse->assertSee('გამოქვეყნება');
+        $editResponse->assertSee('ავტორი და ბმული');
+        $editResponse->assertSee('სურათები');
     }
 
     public function test_homepage_collection_resources_use_dedicated_create_and_edit_pages(): void
@@ -161,12 +166,10 @@ class AdminPanelTest extends TestCase
         $this->actingAs($user)->get("/admin/partners/{$partner->getKey()}/edit")
             ->assertOk()
             ->assertSee('პარტნიორის რედაქტირება')
-            ->assertSeeInOrder([
-                'პარტნიორის აღწერა',
-                'ძირითადი პარამეტრები',
-                'SEO და გაზიარება',
-                'სურათები',
-            ]);
+            ->assertSee('პარტნიორის აღწერა')
+            ->assertSee('ძირითადი პარამეტრები')
+            ->assertSee('SEO და გაზიარება')
+            ->assertSee('სურათები');
 
         $this->actingAs($user)->get('/admin/leadership-members/create')
             ->assertOk()

@@ -88,6 +88,10 @@ class BlogPostResource extends Resource
                     ->directory('cms/blog')
                     ->visibility('public')
                     ->image()
+                    ->previewable()
+                    ->openable()
+                    ->downloadable()
+                    ->imagePreviewHeight('180')
                     ->imageEditor(),
                 FileUpload::make('seo_image_url')
                     ->label('SEO / სოციალური გაზიარების სურათი')
@@ -95,6 +99,10 @@ class BlogPostResource extends Resource
                     ->directory('cms/blog')
                     ->visibility('public')
                     ->image()
+                    ->previewable()
+                    ->openable()
+                    ->downloadable()
+                    ->imagePreviewHeight('180')
                     ->imageEditor(),
             ]),
         ]);

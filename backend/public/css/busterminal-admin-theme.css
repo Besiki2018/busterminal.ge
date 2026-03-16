@@ -404,6 +404,15 @@ body.fi-body {
     align-self: start;
 }
 
+.bt-admin-main-column .fi-sc,
+.bt-admin-sidebar-column .fi-sc {
+    gap: 1rem !important;
+}
+
+.bt-admin-sidebar-column {
+    align-self: start;
+}
+
 .bt-admin-editor-main .fi-section,
 .bt-admin-editor-sidebar .fi-section {
     min-height: 100%;
@@ -434,6 +443,10 @@ body.fi-body {
 
 .bt-admin-editor-sidebar .fi-section-content {
     padding-inline: 1.05rem;
+}
+
+.bt-admin-sidebar-column .bt-admin-editor-sidebar + .bt-admin-editor-sidebar {
+    margin-top: 0;
 }
 
 .bt-admin-editor-main .fi-fo-field-content-col,

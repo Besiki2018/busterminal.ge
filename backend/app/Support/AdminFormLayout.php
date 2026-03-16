@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -12,12 +13,56 @@ class AdminFormLayout
      */
     public static function apply(Schema $schema, array $components): Schema
     {
+        $mainComponents = [];
+        $sidebarComponents = [];
+
+        foreach ($components as $component) {
+            if ($component->getMeta('btFormColumn') === 'sidebar') {
+                $sidebarComponents[] = $component;
+
+                continue;
+            }
+
+            $mainComponents[] = $component;
+        }
+
+        $layout = [];
+
+        if ($mainComponents !== []) {
+            $layout[] = Group::make($mainComponents)
+                ->columns([
+                    'default' => 1,
+                ])
+                ->columnSpan([
+                    'xl' => $sidebarComponents !== [] ? 2 : 3,
+                ])
+                ->extraAttributes([
+                    'class' => 'bt-admin-main-column',
+                ]);
+        }
+
+        if ($sidebarComponents !== []) {
+            $layout[] = Group::make($sidebarComponents)
+                ->columns([
+                    'default' => 1,
+                ])
+                ->columnSpan([
+                    'xl' => 1,
+                ])
+                ->columnStart([
+                    'xl' => 3,
+                ])
+                ->extraAttributes([
+                    'class' => 'bt-admin-sidebar-column',
+                ]);
+        }
+
         return $schema
             ->columns([
                 'default' => 1,
                 'xl' => 3,
             ])
-            ->components($components);
+            ->components($layout);
     }
 
     /**
@@ -27,9 +72,7 @@ class AdminFormLayout
     {
         $section = Section::make($title)
             ->schema($schema)
-            ->columnSpan([
-                'xl' => 2,
-            ])
+            ->meta('btFormColumn', 'main')
             ->extraAttributes([
                 'class' => 'bt-admin-editor-main',
             ]);
@@ -48,12 +91,7 @@ class AdminFormLayout
     {
         $section = Section::make($title)
             ->schema($schema)
-            ->columnSpan([
-                'xl' => 1,
-            ])
-            ->columnStart([
-                'xl' => 3,
-            ])
+            ->meta('btFormColumn', 'sidebar')
             ->extraAttributes([
                 'class' => 'bt-admin-editor-sidebar',
             ]);
