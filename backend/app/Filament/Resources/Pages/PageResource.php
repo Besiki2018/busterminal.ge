@@ -64,14 +64,6 @@ class PageResource extends Resource
                 ],
             )->visible(fn (Get $get): bool => self::isCustomPage($get)),
             AdminFormLayout::mainSection(
-                'სისტემური გვერდის მართვა',
-                [
-                    Placeholder::make('system_page_note')
-                        ->hiddenLabel()
-                        ->content('ეს სისტემური გვერდია. მის საჯარო კონტენტს მართავ შესაბამისი კომპონენტების ან ცალკე რესურსების გვერდებიდან, ხოლო აქედან აკონტროლებ SEO სათაურს, აღწერას, keywords-ს და გაზიარების სურათს.'),
-                ],
-            )->visible(fn (Get $get): bool => ! self::isCustomPage($get)),
-            AdminFormLayout::mainSection(
                 'SEO და გაზიარება',
                 [
                     AdminSeoSchema::localeTabs(),
@@ -81,8 +73,7 @@ class PageResource extends Resource
                 Toggle::make('published')->label('გამოქვეყნებულია')->default(true),
                 Toggle::make('show_in_navigation')
                     ->label('აჩვენე ნავიგაციაში')
-                    ->default(true)
-                    ->helperText('ჩართვის შემთხვევაში გვერდი ავტომატურად გამოჩნდება public მენიუში.'),
+                    ->default(true),
                 Toggle::make('noindex')->label('არ დააინდექსოს საძიებო სისტემებში')->default(false),
                 TextInput::make('sort_order')->label('დალაგების რიგი')->numeric()->default(0),
             ]),
@@ -201,12 +192,10 @@ class PageResource extends Resource
                 TextInput::make("nav_label_{$locale}")
                     ->label('ნავიგაციის დასახელება')
                     ->required()
-                    ->columnSpanFull()
-                    ->helperText('ეს ტექსტი გამოჩნდება public საიტის მენიუში, თუ გვერდს ჩართული აქვს "აჩვენე ნავიგაციაში".'),
+                    ->columnSpanFull(),
                 AdminRichEditor::make("content_{$locale}")
                     ->label('კონტენტი')
                     ->required()
-                    ->helperText('აქ ჩაწერე გვერდის ძირითადი ტექსტი რედაქტორით.')
                     ->visible(fn (Get $get): bool => self::isCustomPage($get)),
             ]);
     }

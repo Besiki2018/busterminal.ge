@@ -18,32 +18,22 @@ class TerminalStats extends StatsOverviewWidget
 
     protected ?string $heading = 'ტერმინალის ძირითადი მაჩვენებლები';
 
-    protected ?string $description = 'საიტზე გამოქვეყნებული შინაარსის სწრაფი სტატისტიკა.';
-
     protected function getStats(): array
     {
         return [
             Stat::make('გამოქვეყნებული გვერდები', Page::query()->where('published', true)->count())
-                ->description('სტატიკური საინფორმაციო გვერდები')
-                ->descriptionIcon(Heroicon::DocumentText)
                 ->icon(Heroicon::DocumentDuplicate)
                 ->chart([3, 4, 5, 5, 6, 7, 7])
                 ->color('primary'),
             Stat::make('ბლოგის პოსტები', BlogPost::query()->where('published', true)->count())
-                ->description('სიახლეები და სტატიები')
-                ->descriptionIcon(Heroicon::Newspaper)
                 ->icon(Heroicon::ChatBubbleLeftRight)
                 ->chart([1, 2, 3, 3, 4, 5, 6])
                 ->color('success'),
             Stat::make('აქტიური მიმართულებები', DestinationRoute::query()->where('published', true)->count())
-                ->description('შიდა და საერთაშორისო მარშრუტები')
-                ->descriptionIcon(Heroicon::Map)
                 ->icon(Heroicon::MapPin)
                 ->chart([8, 9, 10, 10, 11, 12, 12])
                 ->color('warning'),
             Stat::make('ხელით დამატებული განრიგები', ScheduleOverride::query()->where('published', true)->count())
-                ->description('ცვლილებები გასვლის ცხრილში')
-                ->descriptionIcon(Heroicon::Clock)
                 ->icon(Heroicon::CalendarDays)
                 ->chart([0, 1, 1, 2, 2, 3, 4])
                 ->color('gray'),

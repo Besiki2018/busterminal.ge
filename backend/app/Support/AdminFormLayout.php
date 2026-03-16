@@ -77,10 +77,6 @@ class AdminFormLayout
                 'class' => 'bt-admin-editor-main',
             ]);
 
-        if (filled($description)) {
-            $section->description($description);
-        }
-
         return $section;
     }
 
@@ -95,10 +91,6 @@ class AdminFormLayout
             ->extraAttributes([
                 'class' => 'bt-admin-editor-sidebar',
             ]);
-
-        if (filled($description)) {
-            $section->description($description);
-        }
 
         return $section;
     }

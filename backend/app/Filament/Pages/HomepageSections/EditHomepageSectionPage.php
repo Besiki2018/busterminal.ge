@@ -56,7 +56,7 @@ abstract class EditHomepageSectionPage extends Page
 
     public function getSubheading(): string | Htmlable | null
     {
-        return HomepageSectionSchemas::sectionDescription(static::getSectionKey());
+        return null;
     }
 
     public static function getNavigationLabel(): string

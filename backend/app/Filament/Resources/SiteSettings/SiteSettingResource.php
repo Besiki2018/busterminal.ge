@@ -9,7 +9,6 @@ use App\Support\AdminContentLocale;
 use App\Support\HomepageSectionSchemas;
 use BackedEnum;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
@@ -47,7 +46,6 @@ class SiteSettingResource extends Resource
                     'საიტის ძირითადი პარამეტრები',
                     [
                         Section::make('კონტაქტი და ლოკაცია')
-                            ->description('ეს ველები ყველაზე ხშირად იცვლება და პირდაპირ მოქმედებს მთავარ გვერდსა და footer-ზე.')
                             ->columns(2)
                             ->schema([
                                 TextInput::make('hero_ka.location')->label('ლოკაცია / მისამართის მოკლე ვერსია')->columnSpanFull(),
@@ -81,22 +79,6 @@ class SiteSettingResource extends Resource
                             ])
                             ->columnSpanFull(),
                     ],
-                    'ჯერ აირჩიე ენა, შემდეგ კი კონკრეტული სექცია: ჰერო, ჩვენს შესახებ, კონტაქტი ან ფუთერი.',
-                ),
-                AdminFormLayout::sidebarSection(
-                    'ინფორმაცია',
-                    [
-                        Placeholder::make('site_settings_primary_locale_note')
-                            ->label('ძირითადი ენა')
-                            ->content('ქართული გამოიყენება როგორც ძირითადი სამუშაო ვერსია. დანარჩენი ენები ქვედა თაბებიდან იმართება.'),
-                        Placeholder::make('site_settings_scope')
-                            ->label('რას მართავ აქედან')
-                            ->content('ჰერო სექციას, ჩვენს შესახებ ბლოკს, საკონტაქტო ნაწილს და footer-ს ყველა ენაზე.'),
-                        Placeholder::make('site_settings_updated_at')
-                            ->label('ბოლო განახლება')
-                            ->content(fn (?SiteSetting $record): string => $record?->updated_at?->format('Y-m-d H:i') ?? 'ჯერ არ განახლებულა'),
-                    ],
-                    'ეს გვერდი მხოლოდ მთავარ საიტზე გამოყენებულ საერთო პარამეტრებს მართავს.',
                 ),
             ]);
     }

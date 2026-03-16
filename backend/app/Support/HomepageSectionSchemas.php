@@ -26,17 +26,6 @@ class HomepageSectionSchemas
         };
     }
 
-    public static function sectionDescription(string $section): string
-    {
-        return match ($section) {
-            'hero' => 'მართე მთავარი ბლოკის სათაური, აღწერა, ლოკაცია და სტატისტიკა.',
-            'about' => 'შეცვალე ტექსტები, სტატისტიკა, გალერეა და უპირატესობები.',
-            'contact' => 'განაახლე საკონტაქტო ინფორმაცია, სამუშაო საათები და სოციალური ბმულები.',
-            'footer' => 'მართე footer-ის ბრენდინგი, აღწერა და პოპულარული მიმართულებები.',
-            default => throw new InvalidArgumentException("Unknown homepage section [{$section}]."),
-        };
-    }
-
     /**
      * @return array<string>
      */
@@ -83,7 +72,6 @@ class HomepageSectionSchemas
     protected static function heroSection(string $locale): Section
     {
         return Section::make('ჰერო სექცია')
-            ->description('ეს ბლოკი ჩანს მთავარ გვერდზე პირველივე ეკრანზე.')
             ->columns(2)
             ->schema([
                 TextInput::make("hero_{$locale}.badge")->label('ბეიჯი'),
@@ -108,7 +96,6 @@ class HomepageSectionSchemas
     protected static function aboutSection(string $locale): Section
     {
         return Section::make('ჩვენს შესახებ')
-            ->description('შეავსე ტექსტები, ფოტოები და ქვედა feature ბარათები.')
             ->columns(2)
             ->schema([
                 TextInput::make("about_{$locale}.badge")->label('ბეიჯი'),
@@ -168,7 +155,6 @@ class HomepageSectionSchemas
     protected static function contactSection(string $locale): Section
     {
         return Section::make('კონტაქტი')
-            ->description('აქედან იმართება საკონტაქტო ბლოკები და სოციალური ქსელები.')
             ->columns(2)
             ->schema([
                 TextInput::make("contact_{$locale}.badge")->label('ბეიჯი'),
@@ -196,7 +182,6 @@ class HomepageSectionSchemas
     protected static function footerSection(string $locale): Section
     {
         return Section::make('ფუთერი')
-            ->description('ქვედა ბლოკის ბრენდირება და ბმულები.')
             ->columns(2)
             ->schema([
                 TextInput::make("footer_{$locale}.brandTitle")->label('ბრენდის სათაური'),
