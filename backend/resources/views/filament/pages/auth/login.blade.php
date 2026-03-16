@@ -17,16 +17,10 @@
             font-family: "Public Sans", sans-serif;
         }
 
-        .bt-login-view .auth-cover-brand {
-            inset-inline-start: 50%;
-            top: 2rem;
-            transform: translateX(-50%);
-        }
-
         .bt-login-view .app-brand-logo img {
             display: block;
             width: auto;
-            height: 2.6rem;
+            height: 2.9rem;
         }
 
         .bt-login-view .authentication-wrapper {
@@ -51,25 +45,45 @@
 
         .bt-login-view .auth-login-column {
             min-height: 100vh;
-            padding: 7rem 1.5rem 2rem;
+            padding: 1.5rem;
         }
 
         .bt-login-view .auth-login-inner {
             width: 100%;
             max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.25rem;
+        }
+
+        .bt-login-view .auth-login-brand {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .bt-login-view .auth-login-brand .app-brand {
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
         }
     </style>
 
     <div class="authentication-wrapper authentication-cover">
-        <a href="{{ url('/admin') }}" class="app-brand auth-cover-brand">
-            <span class="app-brand-logo">
-                <img src="{{ asset('brand/logo.png') }}" alt="Buster Terminal" />
-            </span>
-        </a>
-
         <div class="authentication-inner row m-0">
             <div class="d-flex col-12 align-items-center justify-content-center authentication-bg auth-login-column">
                 <div class="auth-login-inner">
+                    <div class="auth-login-brand">
+                        <a href="{{ url('/admin') }}" class="app-brand">
+                            <span class="app-brand-logo">
+                                <img src="{{ asset('brand/logo.png') }}" alt="Buster Terminal" />
+                            </span>
+                        </a>
+                    </div>
+
                     <div class="auth-form-card">
                         <h4 class="mb-1">კეთილი იყოს შენი დაბრუნება</h4>
                         <p class="mb-6">გაიარე ავტორიზაცია მართვის პანელში შესასვლელად.</p>
