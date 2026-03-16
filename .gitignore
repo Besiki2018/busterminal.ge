@@ -18,6 +18,7 @@ dist-ssr
 *.sqlite-wal
 backend_l12_backup/
 admin-template/dist/
+admin-template/
 
 # Editor directories and files
 .DS_Store
