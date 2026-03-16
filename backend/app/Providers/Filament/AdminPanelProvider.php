@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->spa(false)
             ->login(Login::class)
             ->brandName('Buster Terminal CMS')
             ->brandLogo(asset('brand/logo.png'))

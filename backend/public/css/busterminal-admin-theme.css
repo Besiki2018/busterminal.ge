@@ -35,6 +35,16 @@ body.fi-body {
     font-family: "Public Sans", sans-serif;
 }
 
+body.fi-body.fi-body-has-navigation .fi-layout,
+body.fi-body.fi-body-has-navigation .fi-layout *,
+body.fi-body.fi-body-has-navigation .fi-layout *::before,
+body.fi-body.fi-body-has-navigation .fi-layout *::after {
+    animation: none !important;
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+    transition-property: none !important;
+}
+
 .fi-layout,
 .fi-main-ctn {
     min-height: 100vh;
