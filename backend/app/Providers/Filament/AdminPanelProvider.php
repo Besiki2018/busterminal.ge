@@ -47,8 +47,7 @@ class AdminPanelProvider extends PanelProvider
             ->maxContentWidth(Width::Full)
             ->simplePageMaxContentWidth(Width::Full)
             ->assets([
-                Css::make('busterminal-admin-theme')
-                    ->relativePublicPath('css/busterminal-admin-theme.css'),
+                Css::make('busterminal-admin-theme', asset('css/busterminal-admin-theme.css')),
             ])
             ->renderHook(
                 PanelsRenderHook::SIDEBAR_LOGO_AFTER,
