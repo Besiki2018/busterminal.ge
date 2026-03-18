@@ -3,6 +3,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { loadEnv } from "vite";
 
 type Language = "ka" | "en" | "ru";
 
@@ -209,7 +210,13 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..");
 const backendRoot = path.join(repoRoot, "backend");
 const distRoot = path.join(repoRoot, "dist");
-const siteUrl = (process.env.VITE_SITE_URL ?? "https://busterminal.ge").replace(/\/$/, "");
+const phpBinary = execFileSync("sh", [path.join(repoRoot, "scripts", "resolve-php.sh")], {
+  cwd: repoRoot,
+  encoding: "utf8",
+  env: process.env,
+}).trim();
+const viteEnv = loadEnv(process.env.MODE ?? "production", repoRoot, "");
+const siteUrl = (process.env.VITE_SITE_URL ?? viteEnv.VITE_SITE_URL ?? "http://localhost:8080").replace(/\/$/, "");
 const defaultSeoImage = `${siteUrl}/facebook-cover-banner.png`;
 const languages: Language[] = ["ka", "en", "ru"];
 const languagePrefix: Record<Language, string> = {
@@ -1499,6 +1506,7 @@ const buildTemplateHtml = (
       .seo-prerender-intro h1,.seo-prerender-hero h1,.seo-prerender-article h1{margin-top:0}
       .seo-prerender-main h1,.seo-prerender-main h2,.seo-prerender-main h3{font-family:TBCContracticaCAPS,system-ui,sans-serif;color:#101828;line-height:1.12;margin:0 0 14px}
       .seo-prerender-main h1{font-size:2.9rem}
+      .seo-prerender-hero h1{font-size:2.175rem}
       .seo-prerender-main h2{font-size:1.8rem}
       .seo-prerender-main h3{font-size:1.2rem}
       .seo-prerender-main p,.seo-prerender-main li,.seo-prerender-main td,.seo-prerender-main th,.seo-prerender-main figcaption{color:#475467;line-height:1.8}
@@ -1529,6 +1537,7 @@ const buildTemplateHtml = (
       .seo-prerender-footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
       @media (max-width: 960px){
         .seo-prerender-main h1{font-size:2.2rem}
+        .seo-prerender-hero h1{font-size:1.65rem}
         .seo-prerender-main h2{font-size:1.5rem}
         .seo-prerender-header-wrap{align-items:flex-start;flex-direction:column}
       }
@@ -1622,12 +1631,22 @@ const buildRssXml = (language: Language, posts: ExportBlogPost[]) => {
 
 const main = async () => {
   const template = await fs.readFile(path.join(distRoot, "index.html"), "utf8");
-  const exportJson = execFileSync("/opt/homebrew/opt/php@8.3/bin/php", ["artisan", "seo:export"], {
-    cwd: backendRoot,
-    encoding: "utf8",
-    env: process.env,
-    maxBuffer: 1024 * 1024 * 10,
-  });
+  let exportJson: string;
+
+  try {
+    exportJson = execFileSync(phpBinary, ["artisan", "seo:export"], {
+      cwd: backendRoot,
+      encoding: "utf8",
+      env: process.env,
+      maxBuffer: 1024 * 1024 * 10,
+    });
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+
+    throw new Error(
+      `Failed to run backend SEO export with PHP binary "${phpBinary}". Ensure the backend environment is configured and set BUSTERTERMINAL_PHP_BINARY if needed. ${reason}`,
+    );
+  }
 
   const exported = normalizeSeoPayload(JSON.parse(exportJson) as ExportPayload);
   const routes: RenderRoute[] = [];

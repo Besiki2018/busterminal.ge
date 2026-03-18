@@ -5,7 +5,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 
 define('LARAVEL_START', microtime(true));
 
-$preferredPhpBinary = getenv('BUSTERTERMINAL_PHP_BINARY') ?: '/opt/homebrew/opt/php@8.3/bin/php';
+$preferredPhpBinary = getenv('BUSTERTERMINAL_PHP_BINARY') ?: null;
 $currentPhpBinary = PHP_BINARY ?: null;
 
 if (
@@ -24,6 +24,15 @@ if (
     passthru($command, $status);
 
     exit(is_int($status) ? $status : 1);
+}
+
+if (PHP_SAPI === 'cli' && ! extension_loaded('intl')) {
+    fwrite(
+        STDERR,
+        "The current PHP binary is missing the intl extension. Install or enable intl, or set BUSTERTERMINAL_PHP_BINARY to a compatible PHP binary.\n"
+    );
+
+    exit(1);
 }
 
 // Register the Composer autoloader...
