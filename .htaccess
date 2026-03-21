@@ -1,0 +1,24 @@
+Options -Indexes -MultiViews
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteRule ^\.well-known/ - [L]
+    RewriteRule (^|/)\.(?!well-known/) - [F,L,NC]
+    RewriteRule ^(?:backend|src|scripts|supabase|admin-template|node_modules|old-files|public)(?:/|$) - [F,L,NC]
+    RewriteRule ^(?:package(?:-lock)?\.json|bun\.lockb|vite\.config\.ts|tsconfig(?:\.[^/]+)?\.json|tailwind\.config\.ts|eslint\.config\.js|components\.json|README\.md|start-dev\.sh|\.env(?:\.production(?:\.local)?)?)$ - [F,L,NC]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+    RewriteRule ^(.+?)/?$ /$1.html [L]
+
+    RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+    RewriteRule ^(.+?)/?$ /$1/index.html [L]
+
+    RewriteRule ^ - [R=404,L]
+</IfModule>
+
+ErrorDocument 404 /404.html

@@ -80,9 +80,19 @@ php artisan key:generate --force
 - `cms.busterminal.ge` ემსახურება `backend/public/` დირექტორიას
 - public frontend production-ზე უკავშირდება backend-ს `VITE_LARAVEL_URL` და `VITE_ADMIN_URL` ცვლადებით, ამიტომ ცალკე `/api` proxy აუცილებელი არ არის
 
+თუ domain-ზე ჯერაც ჰოსტინგის default გვერდი (`OK`, `OK WORKS`, `It works`, ან მსგავსი placeholder) ჩანს, პრობლემა ჩვეულებრივ კოდში არაა. ეს ნიშნავს ერთ-ერთს:
+
+- domain ისევ ჰოსტინგის default document root-ზეა მიბმული
+- ატვირთულია source ფაილები, მაგრამ `dist/` არ არის აგებული
+- server root სწორ საქაღალდეზე არ არის მიბმული (`dist` frontend-სთვის, `backend/public` CMS-ისთვის)
+- ძველი placeholder `index.html` ისევ დევს public root-ში და შენს build-ს ფარავს
+
+ჰოსტინგზე პირდაპირ Apache/shared hosting-ის შემთხვევისთვის frontend build-ში `.htaccess` უკვე შედის `public/.htaccess`-იდან და route fallback-ს აკეთებს `about`, `ge/...`, `partners/...` ტიპის prerendered გვერდებზე.
+
 მნიშვნელოვანი შენიშვნა:
 
 - root-ის `npm run build` მხოლოდ frontend build არ არის. ის უშვებს `backend/artisan seo:export`-საც, ამიტომ build-ის დროს `backend/.env`, Composer dependencies და ბაზასთან წვდომა უკვე გამართული უნდა იყოს.
+- backend runtime-ს და artisan-ს სჭირდება PHP build, რომელსაც `intl` extension აქვს. თუ default `php` სხვა binary-ზე მიდის, გამოიყენე `BUSTERTERMINAL_PHP_BINARY=/path/to/php`.
 
 სერვერზე ასატანი მინიმალური sequence:
 
@@ -109,10 +119,53 @@ npm ci
 npm run build
 ```
 
+ან ერთიანი helper script-ით:
+
+```bash
+cp .env.production.example .env.production
+cp backend/.env.production.example backend/.env
+# შეავსე რეალური production მნიშვნელობებით
+
+sh scripts/deploy-production.sh
+```
+
 web server paths:
 
 - frontend document root: `/path/to/busterminal.ge/dist`
 - backend document root: `/path/to/busterminal.ge/backend/public`
+
+### Hostinger / Shared Hosting
+
+თუ repo პირდაპირ `public_html`-ში დევს და custom document root-ის არჩევა არ შეგიძლია, გამოიყენე shared-hosting mode:
+
+```bash
+cd /home/USER/domains/busterminal.ge/public_html
+git pull origin main
+
+BUSTERTERMINAL_DEPLOY_MODE=shared-hosting-root sh scripts/deploy-production.sh
+```
+
+ეს flow:
+
+- ააგებს backend-ს და frontend-ს
+- `dist/` შიგთავსს გადააკოპირებს root-ში (`public_html/`)
+- root `.htaccess`-ით დაბლოკავს source და secret ფაილებს
+- prerendered route-ებს (`/ge/...`, `/en/...`, `/partners/...`) პირდაპირ გაამუშავებს
+
+shared hosting layout-ისთვის root Apache config უკვე repo-შია: [.htaccess](/Users/besikiekseulidze/web-development/busterminal.ge/.htaccess)
+
+თუ admin panel ცალკე subdomain-ზე გინდა, hPanel-ში შექმენი `cms.busterminal.ge` და document root მიუთითე:
+
+- `/home/USER/domains/busterminal.ge/public_html/backend/public`
+
+თუ `cms.busterminal.ge` საერთოდ არ იხსნება, ჯერ DNS/subdomain configuration აკლია და მარტო კოდის deploy ამას ვერ მოაგვარებს.
+
+server config templates:
+
+- nginx frontend: [deploy/nginx/busterminal.ge.conf](/Users/besikiekseulidze/web-development/busterminal.ge/deploy/nginx/busterminal.ge.conf)
+- nginx backend: [deploy/nginx/cms.busterminal.ge.conf](/Users/besikiekseulidze/web-development/busterminal.ge/deploy/nginx/cms.busterminal.ge.conf)
+
+nginx template-ში `fastcgi_pass` path მაგალითია და უნდა დაემთხვეს სერვერზე რეალურ PHP-FPM socket-ს ან TCP endpoint-ს.
 
 თუ queue ან scheduler-ს გამოიყენებ production-ში, ცალკე პროცესად გაუშვი:
 
