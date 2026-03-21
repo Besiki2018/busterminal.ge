@@ -136,7 +136,23 @@ web server paths:
 
 ### Hostinger / Shared Hosting
 
-თუ repo პირდაპირ `public_html`-ში დევს და custom document root-ის არჩევა არ შეგიძლია, გამოიყენე shared-hosting mode:
+ყველაზე სუფთა ვარიანტია repo იყოს `public_html`-ს გარეთ, მაგალითად:
+
+- repo: `/home/USER/busterminal-app`
+- live public root: `/home/USER/domains/busterminal.ge/public_html`
+
+deploy ბრძანება:
+
+```bash
+cd /home/USER/busterminal-app
+git pull origin main
+
+BUSTERTERMINAL_DEPLOY_MODE=shared-hosting-root \
+BUSTERTERMINAL_SHARED_ROOT=/home/USER/domains/busterminal.ge/public_html \
+sh scripts/deploy-production.sh
+```
+
+თუ repo პირდაპირ `public_html`-ში დევს, ესეც იმუშავებს, მაგრამ clean git pull/deploy workflow-სთვის ზემოთ აღწერილი განლაგება უკეთესია:
 
 ```bash
 cd /home/USER/domains/busterminal.ge/public_html
